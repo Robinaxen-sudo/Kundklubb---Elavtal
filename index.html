@@ -6,7 +6,7 @@
 <title>Kundklubb Elavtal – Låt elbolagen konkurrera om dig</title>
 <meta name="description" content="Gå med i kundklubben utan kostnad och bindningstid. Tillsammans får vi bättre villkor på elavtalet.">
 <meta name="theme-color" content="#0b2e1b">
-<link rel="icon" href="Icon-192.png">
+<link rel="icon" href="icon-512.png">
 <link rel="manifest" href="manifest.json">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -93,7 +93,7 @@
   <svg class="bolt" viewBox="0 0 100 160" fill="#ddf94b"><path d="M60 0 L0 90 H42 L30 160 L100 60 H56 Z"/></svg>
   <svg class="bolt2" viewBox="0 0 100 160" fill="#ddf94b"><path d="M60 0 L0 90 H42 L30 160 L100 60 H56 Z"/></svg>
 
-  <div class="brand"><img src="icon-192.png" alt="Logga"><span>Kundklubb Elavtal</span></div>
+  <div class="brand"><img src="icon-512.png" alt="Logga"><span>Kundklubb Elavtal</span></div>
 
   <div class="hero-inner">
     <span class="kicker">⚡ GRATIS · INGEN BINDNINGSTID</span>
@@ -135,20 +135,20 @@
     </svg>
   </div>
 
-  <form action="https://formsubmit.co/Robinsmail.inbox@gmail.com" method="POST" id="anmalan" class="reveal">
+  <form action="https://api.web3forms.com/submit" method="POST" id="anmalan" class="reveal">
     <h2>Gå med i kundklubben 🎉</h2>
     <p class="sub">Fyll i dina uppgifter så återkommer vi med ett erbjudande.</p>
 
-    <input type="hidden" name="_subject" value="Ny intresseanmälan – Kundklubb Elavtal">
-    <input type="hidden" name="_next" value="https://robinaxen-sudo.github.io/Kundklubb---Elavtal/tack.html">
-    <input type="hidden" name="_template" value="table">
-    <input type="hidden" name="_captcha" value="false">
-    <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <input type="hidden" name="access_key" value="1938ff0e-1b70-4781-bfdc-947c9306335c">
+    <input type="hidden" name="subject" value="Ny intresseanmälan – Kundklubb Elavtal">
+    <input type="hidden" name="from_name" value="Kundklubb Elavtal">
+    <input type="hidden" name="redirect" value="https://robinaxen-sudo.github.io/Kundklubb---Elavtal/tack.html">
+    <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
 
     <label class="f">Personnummer
       <input type="text" name="Personnummer" required inputmode="numeric" autocomplete="off"
-             placeholder="ÅÅÅÅMMDDXXXX" pattern="(\d{6}|\d{8})[-+]?\d{4}"
-             title="Ange personnummer, t.ex. 199001011234">
+             placeholder="ÅÅÅÅMMDD-XXXX" pattern="(\d{6}|\d{8})[-+]?\d{4}"
+             title="Ange personnummer, t.ex. 19900101-1234">
     </label>
     <label class="f">Förnamn
       <input type="text" name="Förnamn" required autocomplete="given-name">
@@ -174,7 +174,7 @@
 </main>
 
 <footer>
-  <img src="icon-192.png" alt="Logga"><br>
+  <img src="icon-512.png" alt="Logga"><br>
   Kundklubb Elavtal · <a href="integritetspolicy.html">Integritetspolicy</a>
 </footer>
 
