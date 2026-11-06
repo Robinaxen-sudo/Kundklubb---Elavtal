@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kundklubb Elavtal – Låt elbolagen konkurrera om dig</title>
+<meta name="description" content="Gå med i kundklubben utan kostnad och bindningstid. Tillsammans får vi bättre villkor på elavtalet.">
+<meta name="theme-color" content="#0b2e1b">
+<link rel="icon" href="icon-192.png">
+<link rel="manifest" href="manifest.json">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--dark:#0b2e1b;--dark2:#12482a;--green:#22b455;--lime:#ddf94b;--mint:#e9f8df;--bg:#f4faee;--text:#14241a;--muted:#5b6b61}
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;font-family:Poppins,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.5;overflow-x:hidden}
+  a{color:var(--green)}
+
+  /* ---------- HERO ---------- */
+  .hero{position:relative;background:radial-gradient(circle at 85% 10%,#1d7a42 0,transparent 45%),radial-gradient(circle at 10% 90%,#0f5a30 0,transparent 50%),var(--dark);color:#fff;padding:18px 20px 70px;overflow:hidden}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:700;position:relative;z-index:2}
+  .brand img{width:42px;height:42px;border-radius:11px;box-shadow:0 0 0 2px rgba(221,249,75,.5)}
+  .hero-inner{max-width:560px;margin:0 auto;position:relative;z-index:2}
+  .kicker{display:inline-block;margin:26px 0 10px;background:var(--lime);color:#111;font-weight:800;font-size:.72rem;letter-spacing:1px;padding:5px 12px;border-radius:99px;transform:rotate(-2deg)}
+  h1{margin:0;font-size:2.45rem;line-height:1.05;font-weight:800;text-transform:uppercase;letter-spacing:-.5px}
+  h1 .hl{display:inline-block;margin-top:6px;padding:2px 14px 4px;color:#0b2e1b;background:var(--lime);transform:rotate(-2deg);border-radius:6px;box-shadow:6px 6px 0 rgba(0,0,0,.25)}
+  .lead{margin:18px 0 22px;font-size:1.05rem;opacity:.95;max-width:420px}
+  .hand{font-family:Caveat,cursive;font-size:1.5rem;color:var(--lime);transform:rotate(-3deg);display:inline-block;margin-left:4px}
+  .cta{display:inline-block;background:var(--lime);color:#111;text-decoration:none;font-weight:800;padding:15px 26px;border-radius:14px;box-shadow:0 6px 0 #a8c21f,0 12px 24px rgba(0,0,0,.3);transition:transform .12s}
+  .cta:active{transform:translateY(3px);box-shadow:0 3px 0 #a8c21f}
+  .bolt{position:absolute;right:-30px;top:70px;width:200px;opacity:.14;z-index:1;animation:float 5s ease-in-out infinite}
+  .bolt2{position:absolute;left:-40px;bottom:30px;width:120px;opacity:.1;z-index:1;animation:float 6s ease-in-out infinite reverse}
+  @keyframes float{0%,100%{transform:translateY(0) rotate(-6deg)}50%{transform:translateY(-18px) rotate(4deg)}}
+  .wave{position:absolute;left:0;right:0;bottom:-1px;height:46px;z-index:2}
+
+  /* ---------- BUBBLA ---------- */
+  .bubble{position:relative;max-width:300px;margin:22px 0 0 auto;background:#fff;color:var(--text);border-radius:22px;padding:14px 18px;font-family:Caveat,cursive;font-size:1.35rem;line-height:1.15;box-shadow:0 8px 22px rgba(0,0,0,.25);transform:rotate(2deg);animation:pop .8s .3s both}
+  .bubble::after{content:"";position:absolute;left:26px;bottom:-12px;width:20px;height:20px;background:#fff;transform:rotate(45deg);border-radius:3px}
+  @keyframes pop{from{opacity:0;transform:scale(.7) rotate(2deg)}to{opacity:1;transform:scale(1) rotate(2deg)}}
+
+  /* ---------- INNEHÅLL ---------- */
+  .wrap{max-width:560px;margin:0 auto;padding:0 16px}
+  .sec-title{font-size:1.5rem;font-weight:800;margin:30px 0 14px;line-height:1.15}
+  .sec-title span{background:linear-gradient(transparent 62%,var(--lime) 62%)}
+
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:-34px;position:relative;z-index:3}
+  .card{background:#fff;border-radius:18px;padding:16px 14px;box-shadow:0 8px 20px rgba(11,46,27,.12);text-align:center;transition:transform .2s}
+  .card:hover{transform:translateY(-4px) rotate(-1deg)}
+  .ico{width:46px;height:46px;margin:0 auto 8px;border-radius:50%;background:linear-gradient(135deg,var(--green),#15843f);color:#fff;display:grid;place-items:center;font-size:1.3rem;box-shadow:0 4px 10px rgba(34,180,85,.4)}
+  .card b{display:block;font-size:.95rem;line-height:1.25}
+
+  .steps{display:grid;gap:12px}
+  .step{display:flex;gap:14px;align-items:center;background:#fff;border-radius:16px;padding:14px;box-shadow:0 3px 10px rgba(0,0,0,.06)}
+  .num{flex:none;width:42px;height:42px;border-radius:12px;background:var(--dark);color:var(--lime);font-weight:800;font-size:1.2rem;display:grid;place-items:center;transform:rotate(-6deg)}
+  .step p{margin:0;font-size:.95rem}
+
+  .together{margin:26px 0 8px;background:linear-gradient(135deg,var(--mint),#d4f2c4);border-radius:22px;padding:20px 18px 0;position:relative;overflow:hidden}
+  .together h3{margin:0 0 4px;font-size:1.15rem}
+  .together p{margin:0;font-size:.92rem;max-width:300px}
+  .together svg{display:block;width:100%;height:auto;margin-top:6px}
+  .tag{position:absolute;right:12px;top:14px;background:var(--green);color:#fff;font-family:Caveat,cursive;font-size:1.25rem;line-height:1;padding:10px 14px;border-radius:16px;transform:rotate(4deg);max-width:130px;text-align:center}
+
+  /* ---------- FORMULÄR ---------- */
+  #anmalan{scroll-margin-top:16px}
+  form{background:#fff;border-radius:24px;padding:22px 18px;box-shadow:0 14px 34px rgba(11,46,27,.18);margin:26px 0 30px;border-top:6px solid var(--lime)}
+  form h2{margin:0 0 4px;font-size:1.5rem;font-weight:800}
+  .sub{margin:0 0 18px;color:var(--muted);font-size:.92rem}
+  label.f{display:block;margin-bottom:14px;font-weight:600;font-size:.88rem}
+  input[type=text],input[type=tel],input[type=email]{width:100%;margin-top:6px;padding:14px 14px;font:500 16px Poppins,sans-serif;border:2px solid #d3e0d6;border-radius:12px;background:#fafdf8;transition:border .15s,box-shadow .15s}
+  input:focus{outline:0;border-color:var(--green);box-shadow:0 0 0 4px rgba(221,249,75,.6)}
+  .check{display:flex;gap:10px;align-items:flex-start;font-size:.88rem;margin:6px 0 18px}
+  .check input{width:22px;height:22px;margin-top:2px;flex:none;accent-color:var(--green)}
+  button{width:100%;padding:18px;font:800 1.02rem Poppins,sans-serif;letter-spacing:.3px;border:0;border-radius:14px;background:var(--lime);color:#111;cursor:pointer;box-shadow:0 6px 0 #a8c21f,0 12px 22px rgba(0,0,0,.15);transition:transform .12s}
+  button:active{transform:translateY(3px);box-shadow:0 3px 0 #a8c21f}
+  .fine{font-size:.78rem;color:var(--muted);margin:14px 0 0;text-align:center}
+  .hp{position:absolute;left:-9999px}
+
+  footer{text-align:center;background:var(--dark);color:#bcd3c4;font-size:.85rem;padding:26px 16px 34px}
+  footer img{width:40px;height:40px;border-radius:10px;margin-bottom:8px}
+  footer a{color:var(--lime)}
+
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .6s,transform .6s}
+  .reveal.in{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+  @media (min-width:600px){h1{font-size:3.1rem}}
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <svg class="bolt" viewBox="0 0 100 160" fill="#ddf94b"><path d="M60 0 L0 90 H42 L30 160 L100 60 H56 Z"/></svg>
+  <svg class="bolt2" viewBox="0 0 100 160" fill="#ddf94b"><path d="M60 0 L0 90 H42 L30 160 L100 60 H56 Z"/></svg>
+
+  <div class="brand"><img src="icon-192.png" alt="Logga"><span>Kundklubb Elavtal</span></div>
+
+  <div class="hero-inner">
+    <span class="kicker">⚡ GRATIS · INGEN BINDNINGSTID</span>
+    <h1>Har du koll på <span class="hl">ditt elavtal?</span></h1>
+    <p class="lead">Många vet vad de betalar – men inte vilket avtal de har. Låt elbolagen konkurrera om dig! <span class="hand">Tillsammans får vi bättre villkor</span></p>
+    <a class="cta" href="#anmalan">Gå med nu →</a>
+    <div class="bubble">Fast avtal? Rörligt? Vad har jag egentligen?…</div>
+  </div>
+
+  <svg class="wave" viewBox="0 0 1440 90" preserveAspectRatio="none"><path fill="#f4faee" d="M0,60 C240,100 480,10 720,40 C960,70 1200,100 1440,50 L1440,90 L0,90 Z"/></svg>
+</section>
+
+<main class="wrap">
+
+  <div class="grid">
+    <div class="card reveal"><div class="ico">0</div><b>0 kr att vara med</b></div>
+    <div class="card reveal"><div class="ico">🔓</div><b>Ingen bindningstid</b></div>
+    <div class="card reveal"><div class="ico">👀</div><b>Du ser erbjudandet innan du bestämmer dig</b></div>
+    <div class="card reveal"><div class="ico">✅</div><b>Du väljer alltid själv om du vill gå vidare</b></div>
+  </div>
+
+  <h2 class="sec-title reveal">Så <span>enkelt</span> funkar det</h2>
+  <div class="steps">
+    <div class="step reveal"><div class="num">1</div><p><b>Gå med</b> i kundklubben – det tar en minut.</p></div>
+    <div class="step reveal"><div class="num">2</div><p>Vi <b>förhandlar</b> och elbolagen tävlar om ditt hushåll.</p></div>
+    <div class="step reveal"><div class="num">3</div><p>Du <b>får ett erbjudande</b> och bestämmer själv.</p></div>
+  </div>
+
+  <div class="together reveal">
+    <div class="tag">Tillsammans får vi bättre villkor!</div>
+    <h3>Styrkan i att vara många</h3>
+    <p>När många hushåll går ihop vill elbolagen konkurrera om oss.</p>
+    <svg viewBox="0 0 400 110" aria-hidden="true">
+      <ellipse cx="200" cy="108" rx="230" ry="26" fill="#7fd36a"/>
+      <g><rect x="40" y="48" width="70" height="48" fill="#f3d9a4"/><polygon points="32,50 75,16 118,50" fill="#c0463a"/><rect x="66" y="66" width="18" height="30" fill="#8a5a2b"/><rect x="48" y="58" width="12" height="12" fill="#bfe3f5"/><rect x="92" y="58" width="12" height="12" fill="#bfe3f5"/></g>
+      <g><rect x="165" y="42" width="76" height="54" fill="#f3d9a4"/><polygon points="157,44 203,8 249,44" fill="#3b5fa3"/><rect x="194" y="62" width="18" height="34" fill="#8a5a2b"/><rect x="173" y="54" width="13" height="13" fill="#bfe3f5"/><rect x="221" y="54" width="13" height="13" fill="#bfe3f5"/></g>
+      <g><rect x="290" y="48" width="70" height="48" fill="#f3d9a4"/><polygon points="282,50 325,16 368,50" fill="#c0463a"/><rect x="316" y="66" width="18" height="30" fill="#8a5a2b"/><rect x="298" y="58" width="12" height="12" fill="#bfe3f5"/><rect x="342" y="58" width="12" height="12" fill="#bfe3f5"/></g>
+      <g fill="#2f8f3e"><circle cx="135" cy="78" r="14"/><circle cx="265" cy="76" r="15"/></g>
+    </svg>
+  </div>
+
+  <form action="https://formsubmit.co/Robinsmail.inbox@gmail.com" method="POST" id="anmalan" class="reveal">
+    <h2>Gå med i kundklubben 🎉</h2>
+    <p class="sub">Fyll i dina uppgifter så återkommer vi med ett erbjudande.</p>
+
+    <input type="hidden" name="_subject" value="Ny intresseanmälan – Kundklubb Elavtal">
+    <input type="hidden" name="_next" value="https://robinaxen-sudo.github.io/S-ljr-knare/tack.html">
+    <input type="hidden" name="_template" value="table">
+    <input type="hidden" name="_captcha" value="false">
+    <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+    <label class="f">Personnummer
+      <input type="text" name="Personnummer" required inputmode="numeric" autocomplete="off"
+             placeholder="ÅÅÅÅMMDD-XXXX" pattern="(\d{6}|\d{8})[-+]?\d{4}"
+             title="Ange personnummer, t.ex. 19900101-1234">
+    </label>
+    <label class="f">Förnamn
+      <input type="text" name="Förnamn" required autocomplete="given-name">
+    </label>
+    <label class="f">Efternamn
+      <input type="text" name="Efternamn" required autocomplete="family-name">
+    </label>
+    <label class="f">Mobilnummer
+      <input type="tel" name="Mobilnummer" required autocomplete="tel" inputmode="tel" placeholder="07X-XXX XX XX">
+    </label>
+    <label class="f">E-postadress
+      <input type="email" name="E-post" required autocomplete="email">
+    </label>
+
+    <label class="check">
+      <input type="checkbox" name="Godkänner integritetspolicy" value="Ja" required>
+      <span>Jag godkänner <a href="integritetspolicy.html">integritetspolicyn</a></span>
+    </label>
+
+    <button type="submit">JAG VILL GÅ MED I KUNDKLUBBEN ⚡</button>
+    <p class="fine">🔒 Helt kostnadsfritt och utan bindningstid.</p>
+  </form>
+</main>
+
+<footer>
+  <img src="icon-192.png" alt="Logga"><br>
+  Kundklubb Elavtal · <a href="integritetspolicy.html">Integritetspolicy</a>
+</footer>
+
+<script>
+  var els = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+    }, {threshold:.15});
+    els.forEach(function(el){ io.observe(el); });
+  } else { els.forEach(function(el){ el.classList.add('in'); }); }
+
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('service-worker.js').catch(function(){});
+  }
+</script>
+</body>
+</html>
