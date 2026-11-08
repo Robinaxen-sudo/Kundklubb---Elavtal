@@ -68,8 +68,17 @@
   form h2{margin:0 0 4px;font-size:1.5rem;font-weight:800}
   .sub{margin:0 0 18px;color:var(--muted);font-size:.92rem}
   label.f{display:block;margin-bottom:14px;font-weight:600;font-size:.88rem}
-  input[type=text],input[type=tel],input[type=email]{width:100%;margin-top:6px;padding:14px 14px;font:500 16px Poppins,sans-serif;border:2px solid #d3e0d6;border-radius:12px;background:#fafdf8;transition:border .15s,box-shadow .15s}
-  input:focus{outline:0;border-color:var(--green);box-shadow:0 0 0 4px rgba(221,249,75,.6)}
+  .opt-hint{font-weight:500;color:var(--muted);font-size:.78rem}
+  input[type=text],input[type=tel],input[type=email],input[type=number],select{width:100%;margin-top:6px;padding:14px 14px;font:500 16px Poppins,sans-serif;border:2px solid #d3e0d6;border-radius:12px;background:#fafdf8;transition:border .15s,box-shadow .15s}
+  select{appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'><path d='M1 1l6 6 6-6' fill='none' stroke='%2314241a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>");background-repeat:no-repeat;background-position:right 14px center;padding-right:38px}
+  input:focus,select:focus{outline:0;border-color:var(--green);box-shadow:0 0 0 4px rgba(221,249,75,.6)}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  fieldset.f{border:0;margin:0 0 16px;padding:0;min-width:0}
+  fieldset.f legend{padding:0;font-weight:600;font-size:.88rem;margin-bottom:8px}
+  .opts{display:grid;gap:8px}
+  .opt{display:flex;gap:12px;align-items:center;padding:13px 14px;border:2px solid #d3e0d6;border-radius:12px;background:#fafdf8;font-weight:600;font-size:.92rem;cursor:pointer;transition:border .15s,background .15s}
+  .opt input{width:22px;height:22px;flex:none;margin:0;accent-color:var(--green)}
+  .opt:has(input:checked){border-color:var(--green);background:var(--mint)}
   .check{display:flex;gap:10px;align-items:flex-start;font-size:.88rem;margin:6px 0 18px}
   .check input{width:22px;height:22px;margin-top:2px;flex:none;accent-color:var(--green)}
   button{width:100%;padding:18px;font:800 1.02rem Poppins,sans-serif;letter-spacing:.3px;border:0;border-radius:14px;background:var(--lime);color:#111;cursor:pointer;box-shadow:0 6px 0 #a8c21f,0 12px 22px rgba(0,0,0,.15);transition:transform .12s}
@@ -156,18 +165,43 @@
              placeholder="ÅÅÅÅMMDDXXXX" pattern="(\d{6}|\d{8})[-+]?\d{4}"
              title="Ange personnummer, t.ex. 198508151234">
     </label>
-    <label class="f">Förnamn
-      <input type="text" name="Förnamn" required autocomplete="given-name">
-    </label>
-    <label class="f">Efternamn
-      <input type="text" name="Efternamn" required autocomplete="family-name">
-    </label>
     <label class="f">Mobilnummer
       <input type="tel" name="Mobilnummer" required autocomplete="tel" inputmode="tel" placeholder="07X-XXX XX XX">
     </label>
     <label class="f">E-postadress
       <input type="email" name="E-post" required autocomplete="email">
     </label>
+
+    <label class="f">Postnummer
+      <input type="text" name="Postnummer" required inputmode="numeric" autocomplete="postal-code"
+             placeholder="123 45" pattern="\d{3}\s?\d{2}" title="Ange postnummer, t.ex. 123 45">
+    </label>
+
+    <label class="f">Boendeform
+      <select name="Boendeform" required>
+        <option value="" selected disabled>Välj boendeform…</option>
+        <option value="Radhus">Radhus</option>
+        <option value="Villa">Villa</option>
+        <option value="Lägenhet">Lägenhet</option>
+      </select>
+    </label>
+
+    <label class="f">Ca årsförbrukning (kWh) <span class="opt-hint">– valfritt</span>
+      <input type="number" name="Årsförbrukning kWh" min="0" step="1" inputmode="numeric" placeholder="t.ex. 5000">
+    </label>
+
+    <label class="f">Yta (m²) <span class="opt-hint">– valfritt</span>
+      <input type="number" name="Yta kvm" min="0" step="1" inputmode="numeric" placeholder="t.ex. 120">
+    </label>
+
+    <fieldset class="f">
+      <legend>Vilken avtalstyp tycker du är mest intressant?</legend>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="Avtalstyp" value="Rörligt kvartspris" required> Rörligt kvartspris</label>
+        <label class="opt"><input type="radio" name="Avtalstyp" value="Rörligt månadspris"> Rörligt månadspris</label>
+        <label class="opt"><input type="radio" name="Avtalstyp" value="Vilken som"> Vilken som</label>
+      </div>
+    </fieldset>
 
     <label class="check">
       <input type="checkbox" name="Godkänner integritetspolicy" value="Ja" required>
