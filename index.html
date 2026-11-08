@@ -169,6 +169,7 @@
     </label>
 
     <button type="submit">JAG VILL GÅ MED I KUNDKLUBBEN ⚡</button>
+    <p class="fine" id="status" role="alert" style="color:#b3261e;font-weight:600"></p>
     <p class="fine">🔒 Helt kostnadsfritt och utan bindningstid.</p>
   </form>
 </main>
@@ -179,7 +180,7 @@
   <p style="margin:14px auto 0;max-width:420px;font-size:.78rem;line-height:1.5;opacity:.85">
     <b>Gritch Sweden AB</b>, org.nr 559392-2726, Sverige<br>
     Svensk operatör och arbetsgivare<br>
-    <br>
+    Apputgivare och teknisk plattform: Gritch Technology OÜ, Estland<br>
     Kontakt: <a href="mailto:legal@getgritch.com">legal@getgritch.com</a>
   </p>
 </footer>
@@ -192,6 +193,34 @@
     }, {threshold:.15});
     els.forEach(function(el){ io.observe(el); });
   } else { els.forEach(function(el){ el.classList.add('in'); }); }
+
+  var form = document.getElementById('anmalan');
+  var statusEl = document.getElementById('status');
+  var btn = form.querySelector('button[type=submit]');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    statusEl.textContent = '';
+    var original = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = 'Skickar…';
+    fetch(form.action, {
+      method: 'POST',
+      headers: {'Accept': 'application/json'},
+      body: new FormData(form)
+    }).then(function(r){ return r.json(); })
+      .then(function(data){
+        if (data && data.success) {
+          window.location.href = 'tack.html';
+        } else {
+          throw new Error('fail');
+        }
+      })
+      .catch(function(){
+        btn.disabled = false;
+        btn.textContent = original;
+        statusEl.textContent = 'Något gick fel och anmälan skickades inte. Försök igen om en stund.';
+      });
+  });
 
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('service-worker.js').catch(function(){});
