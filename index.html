@@ -244,6 +244,30 @@ margin:0 auto 24px;
   .reveal.in{opacity:1;transform:none}
   @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}.spark{display:none}}
   @media (min-width:600px){h1{font-size:3.1rem}}
+
+  /* ---------- ELPRIS PER ELOMRÅDE ---------- */
+  .elpris{margin:26px 0 8px;padding:20px 16px 16px;border-radius:24px;color:#fff;position:relative;overflow:hidden;
+    background:radial-gradient(circle at 90% 0%,#1d7a42 0,transparent 55%),var(--dark);box-shadow:0 14px 34px rgba(11,46,27,.22)}
+  .elpris h2{margin:0;font-size:1.35rem;font-weight:800;line-height:1.15}
+  .elpris h2 span{color:var(--lime)}
+  .elpris .ep-date{margin:2px 0 14px;font-size:.9rem;opacity:.8;text-transform:capitalize}
+  .ep-tabs{display:flex;gap:6px;margin:0 0 14px;padding:4px;background:rgba(255,255,255,.1);border-radius:999px;width:fit-content}
+  .ep-tabs button{width:auto;padding:8px 18px;font:700 .82rem Poppins,sans-serif;letter-spacing:0;border-radius:999px;background:transparent;color:#fff;box-shadow:none;cursor:pointer}
+  .ep-tabs button:active{transform:none;box-shadow:none}
+  .ep-tabs button.on{background:var(--lime);color:#111}
+  .ep-list{display:grid;gap:10px}
+  .ep-card{background:#fff;color:var(--text);border-radius:18px;padding:14px 16px;display:grid;grid-template-columns:1fr auto;align-items:end;gap:2px 12px;box-shadow:0 6px 16px rgba(0,0,0,.18)}
+  .ep-zone{grid-column:1/-1;display:flex;align-items:center;gap:8px;font-weight:800;font-size:.95rem}
+  .ep-zone i{width:12px;height:12px;border-radius:4px;flex:none;background:var(--c)}
+  .ep-zone span{font-weight:500;color:var(--muted)}
+  .ep-val{font-size:2rem;font-weight:800;line-height:1.1;font-variant-numeric:tabular-nums}
+  .ep-val small{display:block;font-size:.8rem;font-weight:500;color:var(--muted)}
+  .ep-meta{text-align:right;font-size:.78rem;color:var(--muted);font-weight:500;line-height:1.35}
+  .ep-meta b{display:block;color:var(--text);font-size:.78rem}
+  .ep-card.low .ep-val{color:#15843f}
+  .ep-card.high .ep-val{color:#c0392b}
+  .ep-note{margin:12px 2px 0;font-size:.74rem;opacity:.7;line-height:1.4}
+  .ep-skel{opacity:.45}
 </style>
 </head>
 <body id="top">
@@ -462,6 +486,18 @@ Gå med kostnadsfritt →
       <p>Tillsammans blir vi starkare. Ju fler medlemmar i samma elområde, desto mer attraktiv blir gruppen för elbolagen.</p>
   
   </div>
+  <!-- ===== MEDELPRIS PER ELOMRÅDE ===== -->
+  <section class="elpris reveal" id="elpris" aria-labelledby="ep-title">
+    <h2 id="ep-title">Medelpris per <span>elområde</span></h2>
+    <p class="ep-date" id="ep-date">&nbsp;</p>
+    <div class="ep-tabs" role="tablist" aria-label="Välj dag">
+      <button type="button" role="tab" class="on" id="ep-t0" data-d="0" aria-selected="true">Idag</button>
+      <button type="button" role="tab" id="ep-t1" data-d="1" aria-selected="false">Imorgon</button>
+    </div>
+    <div class="ep-list" id="ep-list" aria-live="polite"></div>
+    <p class="ep-note">Genomsnittligt spotpris per dygn i öre/kWh, exkl. moms och elbolagets påslag. Morgondagens priser publiceras ca 13:15.</p>
+  </section>
+
   <h2 class="sec-title reveal">Vanliga <span>frågor</span></h2>
   <div class="faq reveal">
     <details>
@@ -900,5 +936,82 @@ Gå med kostnadsfritt →
 })();
 </script>
 
+<script>
+/* Medelpris per elområde – hämtar dygnspriser från elprisetjustnu.se (öppet API) */
+(function(){
+  var ZONER=[
+    {z:'SE1',n:'Luleå',c:'#b05a1f'},
+    {z:'SE2',n:'Sundsvall',c:'#2f86d0'},
+    {z:'SE3',n:'Stockholm',c:'#d03a2f'},
+    {z:'SE4',n:'Malmö',c:'#2f8a3f'}
+  ];
+  var list=document.getElementById('ep-list'),dateEl=document.getElementById('ep-date');
+  if(!list||!dateEl)return;
+  var cache={},cur=0;
+
+  function sthlmParts(offset){
+    var p=new Intl.DateTimeFormat('sv-SE',{timeZone:'Europe/Stockholm',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date());
+    var o={};p.forEach(function(x){o[x.type]=x.value});
+    var d=new Date(Date.UTC(+o.year,+o.month-1,+o.day+offset,12));
+    return {y:d.getUTCFullYear(),m:('0'+(d.getUTCMonth()+1)).slice(-2),d:('0'+d.getUTCDate()).slice(-2),date:d};
+  }
+  function fmt(v){return v.toLocaleString('sv-SE',{minimumFractionDigits:2,maximumFractionDigits:2})}
+
+  function hamta(zon,off){
+    var k=zon+off;
+    if(cache[k])return cache[k];
+    var t=sthlmParts(off);
+    var url='https://www.elprisetjustnu.se/api/v1/prices/'+t.y+'/'+t.m+'-'+t.d+'_'+zon+'.json';
+    cache[k]=fetch(url).then(function(r){
+      if(!r.ok)return null;
+      return r.json();
+    }).then(function(a){
+      if(!a||!a.length)return null;
+      var s=0;a.forEach(function(x){s+=x.SEK_per_kWh});
+      return (s/a.length)*100; /* öre/kWh */
+    }).catch(function(){delete cache[k];return undefined});
+    return cache[k];
+  }
+
+  function rita(off){
+    cur=off;
+    var t=sthlmParts(off);
+    dateEl.textContent=new Intl.DateTimeFormat('sv-SE',{timeZone:'UTC',weekday:'long',day:'numeric',month:'long'}).format(t.date);
+    [0,1].forEach(function(i){
+      var b=document.getElementById('ep-t'+i);
+      b.classList.toggle('on',i===off);b.setAttribute('aria-selected',i===off);
+    });
+    list.innerHTML=ZONER.map(function(z){
+      return '<div class="ep-card ep-skel" data-z="'+z.z+'"><div class="ep-zone"><i style="--c:'+z.c+'"></i>'+z.z+' <span>'+z.n+'</span></div><div class="ep-val">–<small>öre/kWh</small></div><div class="ep-meta"></div></div>';
+    }).join('');
+    Promise.all(ZONER.map(function(z){return hamta(z.z,off)})).then(function(v){
+      if(cur!==off)return;
+      var ok=v.filter(function(x){return typeof x==='number'});
+      var min=Math.min.apply(null,ok),max=Math.max.apply(null,ok);
+      ZONER.forEach(function(z,i){
+        var el=list.querySelector('[data-z="'+z.z+'"]');if(!el)return;
+        el.classList.remove('ep-skel');
+        var val=el.querySelector('.ep-val'),meta=el.querySelector('.ep-meta');
+        if(typeof v[i]==='number'){
+          val.innerHTML=fmt(v[i])+'<small>öre/kWh</small>';
+          meta.innerHTML='<b>'+(off===0?'Idag':'Imorgon')+'</b>Medelpris';
+          if(ok.length>1){if(v[i]===min)el.classList.add('low');else if(v[i]===max)el.classList.add('high')}
+        }else if(v[i]===null){
+          val.innerHTML='–<small>öre/kWh</small>';
+          meta.innerHTML='<b>'+(off===1?'Imorgon':'Idag')+'</b>Publiceras ca 13:15';
+        }else{
+          val.innerHTML='–<small>öre/kWh</small>';
+          meta.innerHTML='<b>Kunde inte hämta</b>Försök igen senare';
+        }
+      });
+    });
+  }
+
+  document.querySelectorAll('.ep-tabs button').forEach(function(b){
+    b.addEventListener('click',function(){rita(+b.getAttribute('data-d'))});
+  });
+  rita(0);
+})();
+</script>
 </body>
 </html>
